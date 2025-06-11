@@ -1,0 +1,108 @@
+#include <iostream>
+#include "classes.h"
+#include <stdlib.h>
+
+using namespace std;
+
+
+int main() {
+
+	Veiculo* v1 = new Veiculo(1);
+	Veiculo* v2 = new Veiculo(2);
+	Veiculo* v3 = new Veiculo(3);
+
+	//v1->setVelMax(700); caso eu queira que o setVelMax não possa alterar o valor que não quero que seja auterado, basta declarar set como privado
+	
+	v1->setLigado(1);
+	v2->setLigado(0);
+	//v3->setLigado(1); // graças ao setLigado(0) no final do cabeçalho, se n definir ligado, o valor aparece desligado, no caso false
+
+	cout << "Valores das velocidades maximas: " << endl << endl;
+
+	cout << "Valor de vm do v1: " << v1->getVelMax() << "Km/h" << endl << endl;
+	cout << "Valor de vm do v2: " << v2->getVelMax() << "Km/h" << endl << endl;
+	cout << "Valor de vm do v3: " << v3->getVelMax() << "Km/h" << endl << endl << endl;
+
+	cout << "Veiculo ligado ou desligado: " << endl << endl;
+
+	if (v1->getLigado()) {
+		cout << "Veiculo 1 esta ligado. " << endl << endl;
+	}
+	else {
+		cout << "Veiculo 1 esta desligado. " << endl << endl;
+	}
+	if (v2->getLigado()) {
+		cout << "Veiculo 2 esta ligado. " << endl << endl;
+	}
+	else {
+		cout << "Veiculo 2 esta desligado. " << endl << endl;
+	}
+	if (v3->getLigado()) {
+		cout << "Veiculo 3 esta ligado. " << endl << endl;
+	}
+	else {
+		cout << "Veiculo 3 esta desligado. " << endl << endl;
+	}
+
+	system("pause");
+
+	return 0;
+}
+
+// Cabeçalho abaixo: 
+
+#pragma once
+
+class Veiculo{
+public:     // pode ser alterado pelo usuário
+	int vel;
+	int tipo;
+	Veiculo(int tp);
+	int getVelMax();
+	bool getLigado();
+	void setLigado(int l);
+	//void setVelMax(int vm); <- pode alterar o private
+private:    // não pode ser alterada pelo usuário
+	std::string nome;
+	int velMax;
+	bool ligado;
+	void setVelMax(int vm);
+};
+
+bool Veiculo::getLigado() {
+	return ligado;
+}
+
+void Veiculo::setLigado(int l) {
+	if (l == 1) {
+		ligado = true;
+	}
+	else if (l == 0) {
+		ligado = false;
+	}
+}
+
+int Veiculo::getVelMax() {
+	return velMax;
+}
+
+void Veiculo::setVelMax(int vm) {
+	velMax = vm;
+}
+
+Veiculo::Veiculo(int tp) {
+	tipo = tp;
+	if (tipo == 1) {
+		nome = "Carro";
+		setVelMax(200); // Nestas atribuições pode-se usar tanto setVelMax quanto atrubuir diretamente pq msm sendo pv, o método pertence a classe
+	}
+	else if (tipo == 2) {
+		nome = "Aviao";
+		velMax = 400;
+	}
+	else if (tipo == 3) {
+		nome = "Navio";
+		setVelMax(350);
+	}
+	setLigado(0);
+}  
